@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record model="ir.ui.view" id="emplacement_tree_view">
+    <field name="name">emplacement.tree</field>
+    <field name="model">souchier.emplacement</field>
+    <field name="arch" type="xml">
+      <tree string="Stock Location">
+           <field name="name"/>
+           <field name="occupe_par" readonly="1"/>
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="emplacement_form_view">
+    <field name="name">emplacement.form</field>
+    <field name="model">souchier.emplacement</field>
+    <field name="arch" type="xml">
+      <form string="Stock Location">
+        <sheet>
+         <group>
+           <field name="name"/>
+           <field name="occupe_par" readonly="1"/>
+         </group>
+       </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="souche_tree_view">
+    <field name="name">souche.tree</field>
+    <field name="model">souchier.souche</field>
+    <field name="arch" type="xml">
+      <tree string="Souches" editable="bottom">
+           <field name="name"/>
+           <field name="description"/>
+           <field name="client"/>
+           <field name="date_reception"/>
+           <field name="emplacement"/>           
+      </tree>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="souche_form_view">
+    <field name="name">souche.form</field>
+    <field name="model">souchier.souche</field>
+    <field name="arch" type="xml">
+      <form string="Souches" >
+          <group>
+               <field name="name"/>
+               <field name="client"/>
+           </group>
+           <field name="description"/>
+           <field name="date_reception"/>
+           Master seed location :
+           <field name="emplacement"/>
+           <separator string="Working seeds locations" colspan="4"/>
+           <field name="emplacements_WS">
+               <tree string="Working seeds locations">
+                   <field name="name"/>
+                </tree>
+            </field>
+      </form>
+    </field>
+  </record>
+  
+  
+  <record model="ir.actions.act_window" id="emplacement_list_action">
+    <field name="name">Locations</field>
+    <field name="res.model">souchier.emplacement</field>
+    <field name="view_type">form</field>
+    <field name="view_mode"tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">Listes des emplacements
+      </p>
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="souche_list_action">
+    <field name="name">Souches</field>
+    <field name="res.model">souchier.souche</field>
+    <field name="view_type">form</field>
+    <field name="view_mode"tree,form</field>
+    <field name="help" type="html">
+      <p class="oe_view_nocontent_create">Listes des souches
+      </p>
+    </field>
+  </record>
+  
+  
+  <menuitem id="main_souchier_menu" name="Souchier"/>
+  <menuitem id="souchier_menu" name="Souchier"
+            parent="main_souchier_menu"/>
+  <menuitem id="emplacement_menu" name="Locations" parent="souchier_menu"
+            action="emplacement_list_action"/>
+  <menuitem id="souche_menu" name="Souches" parent="souchier_menu"
+            action="souche_list_action"/>
+</odoo>
